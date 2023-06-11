@@ -33,8 +33,7 @@ pipeline{
             steps{
                 echo "Working directory: ${env.WORKSPACE}"
                 script {
-                    docker.withRegistry("https://hub.docker.com/","fdc6a5d6-91ba-4089-816d-128f97d842cc
-")
+                    docker.withRegistry("https://hub.docker.com","fdc6a5d6-91ba-4089-816d-128f97d842cc")
                       def image = docker.build("mounirelbakkali/demoJenkins:latest")
                         image.push()
                 } 
