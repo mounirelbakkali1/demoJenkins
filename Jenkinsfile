@@ -38,6 +38,13 @@ pipeline{
                         def image = docker.build('mounirelbakkali/demoJenkins:latest')
                         image.push()
                     }
+                    docker.withRegistry('https://hub.docker.com', 'fdc6a5d6-91ba-4089-816d-128f97d842cc') {
+
+                    def customImage = docker.build("mounirelbakkali/demoJenkins:${env.BUILD_ID}")
+
+                    /* Push the container to the custom Registry */
+                    customImage.push()
+                }
                 } 
             }
         }
