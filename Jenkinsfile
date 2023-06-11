@@ -34,12 +34,12 @@ pipeline{
             steps {
                 echo "Working directory: ${env.WORKSPACE}"
                 script {
-                    // docker.withRegistry('https://hub.docker.com', 'fdc6a5d6-91ba-4089-816d-128f97d842cc') {
-                    // def customImage = docker.build("mounirelbakkali/demoJenkins:${env.BUILD_ID}")
-                    // customImage.push()
-                    //}
-                    def customImage = docker.build("mounirelbakkali/demojenkins:${env.BUILD_ID}")
+                    docker.withRegistry('https://hub.docker.com', 'DockerHub') {
+                    def customImage = docker.build("mounirelbakkali/demoJenkins:${env.BUILD_ID}")
                     customImage.push()
+                    }
+                    // def customImage = docker.build("mounirelbakkali/demojenkins:${env.BUILD_ID}")
+                    // customImage.push()
     
                 } 
             }
