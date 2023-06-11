@@ -38,7 +38,7 @@ pipeline{
                     // def customImage = docker.build("mounirelbakkali/demoJenkins:${env.BUILD_ID}")
                     // customImage.push()
                     //}
-                    def customImage = docker.build("mounirelbakkali/demoJenkins:${env.BUILD_ID}")
+                    def customImage = docker.build("mounirelbakkali/demojenkins:${env.BUILD_ID}")
                     customImage.push()
     
                 } 
