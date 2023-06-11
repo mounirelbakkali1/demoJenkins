@@ -34,17 +34,13 @@ pipeline{
             steps {
                 echo "Working directory: ${env.WORKSPACE}"
                 script {
-                    docker.withRegistry([url: 'https://hub.docker.com', credentialsId: 'fdc6a5d6-91ba-4089-816d-128f97d842cc']) {
-                        def image = docker.build('mounirelbakkali/demoJenkins:latest')
-                        image.push()
-                    }
-                    docker.withRegistry('https://hub.docker.com', 'fdc6a5d6-91ba-4089-816d-128f97d842cc') {
-
+                    // docker.withRegistry('https://hub.docker.com', 'fdc6a5d6-91ba-4089-816d-128f97d842cc') {
+                    // def customImage = docker.build("mounirelbakkali/demoJenkins:${env.BUILD_ID}")
+                    // customImage.push()
+                    //}
                     def customImage = docker.build("mounirelbakkali/demoJenkins:${env.BUILD_ID}")
-
-                    /* Push the container to the custom Registry */
                     customImage.push()
-                }
+    
                 } 
             }
         }
