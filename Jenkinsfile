@@ -41,7 +41,7 @@ pipeline{
         stage('verify target directory') {
             steps {
                 script {
-                    sh "ls -l target"
+                    sh "ls -l build/target"
                 }
             }
         }
