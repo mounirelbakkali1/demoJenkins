@@ -38,6 +38,15 @@ pipeline{
             sh("mvn clean package -DskipTests")
          }
         }
+        stage('verify target directory') {
+            steps {
+                script {
+                    docker.image("maven:3-openjdk-17").inside {
+                        sh "ls target"
+                    }
+                }
+            }
+        }
         stage('push container to registry') {
             steps {
                 echo "Working directory: ${env.WORKSPACE}"
