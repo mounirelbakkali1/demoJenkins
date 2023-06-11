@@ -36,9 +36,8 @@ pipeline{
          }
          steps {
             sh("mvn clean package -DskipTests")
-            stash name: 'jar', includes: '**/*.jar'
          }
-      }
+        }
         stage('push container to registry') {
             steps {
                 echo "Working directory: ${env.WORKSPACE}"
