@@ -41,9 +41,7 @@ pipeline{
         stage('verify target directory') {
             steps {
                 script {
-                    docker.image("maven:3-openjdk-17").inside {
-                        sh "ls target"
-                    }
+                    sh "ls -l target"
                 }
             }
         }
