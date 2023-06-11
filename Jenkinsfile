@@ -13,6 +13,7 @@ pipeline{
             steps {
                 sh("mvn clean install -DskipTests")
             }
+        }
         stage('start tests') {
             agent {
                 docker { image 'maven:3-openjdk-17' }
@@ -30,12 +31,12 @@ pipeline{
             }
         }
         stage('push container to registry') {
-            steps{
+            steps {
                 echo "Working directory: ${env.WORKSPACE}"
                 script {
                     docker.withRegistry("https://hub.docker.com","fdc6a5d6-91ba-4089-816d-128f97d842cc")
-                      def image = docker.build("mounirelbakkali/demoJenkins:latest")
-                        image.push()
+                    def image = docker.build("mounirelbakkali/demoJenkins:latest")
+                    image.push()
                 } 
             }
         }
