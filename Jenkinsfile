@@ -35,8 +35,9 @@ pipeline{
                 echo "Working directory: ${env.WORKSPACE}"
                 script {
                     docker.withRegistry([url: 'https://hub.docker.com', credentialsId: 'fdc6a5d6-91ba-4089-816d-128f97d842cc']) {
-                    def image = docker.build('mounirelbakkali/demoJenkins:latest')
-                    image.push()
+                        def image = docker.build('mounirelbakkali/demoJenkins:latest')
+                        image.push()
+                    }
                 } 
             }
         }
