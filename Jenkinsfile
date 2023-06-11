@@ -34,7 +34,7 @@ pipeline{
             steps {
                 echo "Working directory: ${env.WORKSPACE}"
                 script {
-                    docker.withRegistry('https://hub.docker.com', 'DockerHub') {
+                    docker.withRegistry('https://index.docker.io', 'DockerHub') {
                     def customImage = docker.build("mounirelbakkali/demojenkins:${env.BUILD_ID}")
                     customImage.push()
                     }
