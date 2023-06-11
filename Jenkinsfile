@@ -39,37 +39,16 @@ pipeline{
             stash name: 'jar', includes: '**/*.jar'
          }
       }
-        stage('build docker image') {
-            agent {
-                docker { image 'maven:3-openjdk-17' }
-            }
+        stage('push container to registry') {
             steps {
-                unstash 'jar'
-                sh("docker build -t mounirelbakkali/demojenkins:${env.BUILD_ID} .")
+                echo "Working directory: ${env.WORKSPACE}"
+                script {
+                    docker.withRegistry('https://index.docker.io', 'DockerHub') {
+                    def customImage = docker.build("mounirelbakkali/demojenkins:${env.BUILD_ID}")
+                    customImage.push()
+                    }
+                } 
             }
         }
-        stage ('push docker image') {
-            steps {
-                withCredentials([string(credentialsId: 'DockerHub', variable: 'DOCKERHUB')]) {
-                    sh("docker login -u mounirelbakkali -p ${DOCKERHUB}")
-                    sh("docker push mounirelbakkali/demojenkins:${env.BUILD_ID}")
-                }
-            }
-        }
-
-        // stage('push container to registry') {
-        //     steps {
-        //         echo "Working directory: ${env.WORKSPACE}"
-        //         script {
-        //             docker.withRegistry('https://index.docker.io', 'DockerHub') {
-        //             def customImage = docker.build("mounirelbakkali/demojenkins:${env.BUILD_ID}")
-        //             customImage.push()
-        //             }
-        //             // def customImage = docker.build("mounirelbakkali/demojenkins:${env.BUILD_ID}")
-        //             // customImage.push()
-    
-        //         } 
-        //     }
-        // }
     }
 }
